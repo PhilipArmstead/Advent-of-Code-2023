@@ -7,6 +7,7 @@ opening your browser's dev-tools, pasting the code in and executing it.
 ## Solutions
 ### 2022
 - [Day 1](2022/day-1.js)
+- [Day 2](2022/day-2.js)
 
 ### 2023
 - [Day 1](2023/day-1.js)
