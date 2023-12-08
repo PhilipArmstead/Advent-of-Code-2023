@@ -10,4 +10,5 @@ opening your browser's dev-tools, pasting the code in and executing it.
 - [Day 3](./solutions/day-3.js)
 - [Day 4](./solutions/day-4.js)
 - [Day 5](./solutions/day-5.js)
+- [Day 6](./solutions/day-6.js)
 - [Day 8](./solutions/day-8.js)
