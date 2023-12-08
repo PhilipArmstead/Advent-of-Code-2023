@@ -2,8 +2,9 @@
 // Visit the input page https://adventofcode.com/2023/day/8/input
 // Paste the following code in to your browser's dev tools and execute it
 // There's a few aspects of this solution which make it highly specific to the input data of this puzzle
-// - there's no guarantee each node has the same exit interval
-// - there's no guarantee all intervals share a prime factor
+// - there's no guarantee each node has a consistent exit interval
+// - there's no guarantee all exit intervals share a prime factor
+// - there's no guarantee that all exits will be found before one path loops and exits twice
 
 {
 	const input = document.body.textContent.trim().split('\n')
@@ -38,18 +39,17 @@
 
 	const nodes = Object.keys(nodeList).filter(n => n[2] === 'A')
 	i = 0
-	const intervals = []
-	while (intervals.length !== nodes.length) {
+	const primeFactors = []
+	while (primeFactors.length !== nodes.length) {
 		for (let j = 0; j < nodes.length; ++j) {
 			nodes[j] = nodeList[nodes[j]][instructions[i % instructions.length] === 'L' ? 0 : 1]
 
 			if (nodes[j][2] === 'Z') {
-				intervals.push(i + 1)
+				primeFactors.push(getPrimeFactors(i + 1))
 			}
 		}
 		++i
 	}
 
-	const hops = intervals.reduce((acc, cur) => acc * getPrimeFactors(cur)[0], 1) * getPrimeFactors(intervals[0])[1]
-	console.log('Solution to part two:', hops)
+	console.log('Solution to part two:', primeFactors.reduce((acc, cur) => acc * cur[0], 1) * primeFactors[0][1])
 }
