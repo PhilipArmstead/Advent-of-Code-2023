@@ -13,6 +13,7 @@ opening your browser's dev-tools, pasting the code in and executing it.
 - [Day 5](2022/day-5.js)
 - [Day 6](2022/day-6.js)
 - [Day 7](2022/day-7.js)
+- [Day 8](2022/day-8.js)
 
 ### 2023
 - [Day 1](2023/day-1.js)
