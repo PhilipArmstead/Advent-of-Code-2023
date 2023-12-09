@@ -45,7 +45,7 @@
 				}
 
 				// Part two
-				if (numbers.length === 2) {
+				if (char === '*' && numbers.length === 2) {
 					valuePartTwo += numbers[0] * numbers[1]
 				}
 			}
