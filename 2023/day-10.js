@@ -3,48 +3,53 @@
 // Paste the following code in to your browser's dev tools and execute it
 
 {
+	const Direction = { UP: 1, DOWN: 2, LEFT: 4, RIGHT: 8 }
+	const direction = {
+		'|': Direction.UP | Direction.DOWN,
+		'-': Direction.LEFT | Direction.RIGHT,
+		'L': Direction.UP | Direction.RIGHT,
+		'J': Direction.UP | Direction.LEFT,
+		'7': Direction.DOWN | Direction.LEFT,
+		'F': Direction.DOWN | Direction.RIGHT,
+		'.': 0,
+		'S': Direction.UP | Direction.DOWN | Direction.LEFT | Direction.RIGHT,
+	}
+
 	const input = document.body.textContent.trim()
 	const grid = input.split('\n')
 	const index = input.indexOf('S')
-	const pipes = {
-		up: ['|', 'F', '7'],
-		down: ['|', 'J', 'L'],
-		left: ['F', '-', 'L'],
-		right: ['J', '-', '7'],
-	}
-
 	let y = Math.floor(index / grid.length)
 	let x = (index - y) % grid[0].length
-	let lastY = y
-	let lastX = x
+	let sx = x
+	let sy = y
+	let area = 0
+	let circumference = 0
 
-	// Part one
-	let i = 1
-	let isStart = true
-	while (true) {
-		const here = grid[y][x]
-		if (x !== grid[0].length - 1 && lastX !== x + 1 && pipes.right.includes(grid[y][x + 1]) && (isStart || pipes.left.includes(here))) {
-			lastX = x
-			lastY = y
-			++x
-		} else if (y !== grid.length - 1 && lastY !== y + 1 && pipes.down.includes(grid[y + 1][x]) && (isStart || pipes.up.includes(here))) {
-			lastX = x
-			lastY = y
-			++y
-		} else if (x && lastX !== x - 1 && pipes.left.includes(grid[y][x - 1]) && (isStart || pipes.right.includes(here))) {
-			lastX = x
-			lastY = y
-			--x
-		} else if (y && lastY !== y - 1 && pipes.up.includes(grid[y - 1][x]) && (isStart || pipes.down.includes(here))) {
-			lastX = x
-			lastY = y
-			--y
+	while (++circumference) {
+		let oldX = x
+		let oldY = y
+		const char = grid[y][x]
+
+		if (x < grid[0].length - 1 && direction[char] & Direction.RIGHT && direction[grid[y][x + 1]] & Direction.LEFT) {
+			area += y
+			x++
+		} else if (y < grid.length - 1 && direction[char] & Direction.DOWN && direction[grid[y + 1][x]] & Direction.UP) {
+			area -= x
+			y++
+		} else if (x > 0 && direction[char] & Direction.LEFT && direction[grid[y][x - 1]] & Direction.RIGHT) {
+			area -= y
+			x--
+		} else if (y > 0 && direction[char] & Direction.UP && direction[grid[y - 1][x]] & Direction.DOWN) {
+			area += x
+			y--
 		} else {
 			break
 		}
-
-		++i
-		isStart = false
+		grid[oldY] = grid[oldY].substring(0, oldX) + '.' + grid[oldY].substring(oldX + 1)
 	}
-	console.log('Solution to part one:', i / 2)
+
+	area += y * sx - x * sy
+
+	console.log('Solution to part one:', circumference / 2)
+	console.log('Solution to part two:', (Math.abs(area) - circumference) / 2 + 1)
 }
