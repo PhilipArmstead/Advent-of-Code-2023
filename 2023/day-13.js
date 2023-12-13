@@ -24,12 +24,19 @@
 		for (let y = 0; y < grid.length - 1; ++y) {
 			let differences = 0
 			for (let y2 = 0; y2 < grid.length; ++y2) {
-				let left = y - y2
-				let right = y + 1 + y2
+				const up = y - y2
+				const down = y + 1 + y2
 
-				if (left >= 0 && left < right && right < grid.length) {
-					for (let x = 0; x < grid[0].length; ++x) {
-						differences += grid[left][x] !== grid[right][x]
+				if (up < 0 || down >= grid.length || up >= down) {
+					break
+				}
+
+				for (let x = 0; x < grid[0].length; ++x) {
+					differences += grid[up][x] !== grid[down][x]
+
+					if (differences > allowedDifferences) {
+						y2 = grid.length
+						x = grid[0].length
 					}
 				}
 			}
@@ -38,8 +45,6 @@
 				return y + 1
 			}
 		}
-
-		return 0
 	}
 
 	// Part one
@@ -48,7 +53,7 @@
 	console.log('Solution to part one:', sumPartOne)
 
 	// Part two
-	const sumGrid2 = (sum, grid) => sum + (getLineOfSymmetry(grid, 1) * 100 || getLineOfSymmetry(getTransposedGrid(grid), 1));
-	const sumPartTwo = input.reduce(sumGrid2, 0);
-	console.log('Solution to part two:', sumPartTwo);
+	const sumGrid2 = (sum, grid) => sum + (getLineOfSymmetry(grid, 1) * 100 || getLineOfSymmetry(getTransposedGrid(grid), 1))
+	const sumPartTwo = input.reduce(sumGrid2, 0)
+	console.log('Solution to part two:', sumPartTwo)
 }
