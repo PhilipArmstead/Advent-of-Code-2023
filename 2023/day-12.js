@@ -5,37 +5,60 @@
 {
 	const input = document.body.textContent.trim().split('\n')
 		.map(line => line.split(' '))
-		.map(([parts, count]) => [parts, count.split(',').map(Number)])
+		.map(([line, count]) => [line, count.split(',').map(Number)])
 
-	// Part one
-	let matchPartOne = 0
-	for (const [line, count] of input) {
-		const questionMarks = []
 
-		for (let c= 0; c < line.length; ++c) {
-			if (line[c] === '?') {
-				questionMarks.push(c)
+	const permutationsCache = new Map()
+	const computeLine = (characters, blocks, cIndex = 0, bIndex = 0, currentBlockLength = 0) => {
+		const key = `${cIndex},${bIndex},${currentBlockLength}`
+		if (permutationsCache.has(key)) {
+			return permutationsCache.get(key)
+		}
+
+		if (cIndex === characters.length) {
+			if (bIndex === blocks.length && !currentBlockLength) {
+				return 1
+			} else if (bIndex === blocks.length - 1 && blocks[bIndex] === currentBlockLength) {
+				return 1
+			} else {
+				return 0
 			}
 		}
-		let rule = count.reduce((acc, cur) => acc + `#{${cur}}[^#]+?`, '(^|[^#])')
-		rule = rule.substring(0, rule.length - 6) + '([^#]|$)'
-		const regexp = new RegExp(rule)
 
-		for (let i = 0; i < Math.pow(2, questionMarks.length); ++i) {
-			let modifiedLine = line
-			for (let j = 0; j < questionMarks.length; ++j) {
-				if (Math.pow(2, j) & i) {
-					modifiedLine = modifiedLine.substring(0, questionMarks[j]) + '#' + modifiedLine.substring(questionMarks[j] + 1)
+		let answer = 0
+		for (const c of ['.', '#']) {
+			if ([c, '?'].includes(characters[cIndex])) {
+				if (c === '.') {
+					if (!currentBlockLength) {
+						answer += computeLine(characters, blocks, cIndex + 1, bIndex, 0)
+					} else if (bIndex < blocks.length && blocks[bIndex] === currentBlockLength) {
+						answer += computeLine(characters, blocks, cIndex + 1, bIndex + 1, 0)
+					}
+				} else if (c === '#') {
+					answer += computeLine(characters, blocks, cIndex + 1, bIndex, currentBlockLength + 1)
 				}
 			}
-
-			if (modifiedLine.match(/#/g)?.length === count.reduce((acc, cur) => acc + cur, 0)) {
-				matchPartOne += !!regexp.exec(modifiedLine)
-			}
 		}
+		permutationsCache.set(key, answer)
+
+		return answer
 	}
-	console.log('Solution to part one:', matchPartOne)
+
+	// Part one
+	let sumPartOne = 0
+	for (const [line, count] of input) {
+		permutationsCache.clear()
+		sumPartOne += computeLine(line, count)
+	}
+
+	console.log('Solution to part one:', sumPartOne)
 
 	// Part two
-	console.log('Solution to part two:', 0)
+	let sumPartTwo = 0
+	for (const [line, count] of input) {
+		permutationsCache.clear()
+		sumPartTwo += computeLine([line, line, line, line, line].join('?'), [count, count, count, count, count].flat())
+	}
+
+	console.log('Solution to part two:', sumPartTwo)
 }
