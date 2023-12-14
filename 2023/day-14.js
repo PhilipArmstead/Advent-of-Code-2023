@@ -3,13 +3,7 @@
 // Paste the following code in to your browser's dev tools and execute it
 
 {
-	const input = document.body.textContent
-		.trim()
-		.split('\n')
-
-	const swapCharacter = (line, y, x, character) => {
-		line[y] = line[y].substring(0, x) + character + line[y].substring(x + 1)
-	}
+	const input = document.body.textContent.trim().split('\n')
 
 	const getLoad = (input) => {
 		let load = 0
@@ -32,23 +26,20 @@
 				transposedArray[x] += grid[y][x]
 			}
 		}
-
 		return transposedArray
 	}
 
 	const tiltUp = (input) => {
 		for (let x = 0; x < input[0].length; ++x) {
-			let emptySpaceStart = 0
-
+			let empty = 0
 			for (let y = 0; y < input.length; ++y) {
 				switch (input[y][x]) {
 					case 'O':
-						swapCharacter(input, y, x, '.')
-						swapCharacter(input, emptySpaceStart, x, 'O')
-						++emptySpaceStart
+						input[y] = input[y].substring(0, x) + '.' + input[y].substring(x + 1)
+						input[empty] = input[empty].substring(0, x) + 'O' + input[empty].substring(x + 1)
+						++empty
 						break
-					case '#':
-						emptySpaceStart = y + 1
+					case '#': empty = y + 1
 				}
 			}
 		}
@@ -56,10 +47,10 @@
 
 	const cacheCount = new Map()
 	const cache = new Map()
-	const getNthFullCycle = (grid, i) => {
-		let iterations = 0
-		let singleRepetitionCount = 0
-		let doubleRepetitionCount = 0
+	const getLoadOfNthFullCycle = (grid, targetCycle) => {
+		let i = 0
+		let uniquePermutations = 0
+		let nonUniquePermutations = 0
 
 		while (true) {
 			for (let j = 0; j < 4; ++j) {
@@ -71,19 +62,19 @@
 			let count = cacheCount.get(key) || 0
 			cacheCount.set(key, ++count)
 
-			singleRepetitionCount += count === 1
-			doubleRepetitionCount += count === 2
+			uniquePermutations += count === 1
+			nonUniquePermutations += count === 2
 
 			if (count === 3) {
 				break
 			} else if (count === 2) {
-				cache.set(iterations + 1, getLoad(grid))
+				cache.set(i + 1, getLoad(grid))
 			}
 
-			++iterations
+			++i
 		}
 
-		return cache.get(iterations + (i - singleRepetitionCount) % doubleRepetitionCount - doubleRepetitionCount)
+		return cache.get(i + (targetCycle - uniquePermutations) % nonUniquePermutations - nonUniquePermutations)
 	}
 
 	// Part one
@@ -93,5 +84,5 @@
 
 	// Part two
 	let rotatedGrid = structuredClone(input)
-	console.log('Solution to part two:', getNthFullCycle(rotatedGrid, 1e9))
+	console.log('Solution to part two:', getLoadOfNthFullCycle(rotatedGrid, 1e9))
 }

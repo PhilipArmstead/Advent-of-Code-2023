@@ -53,7 +53,8 @@
 					continue
 				}
 
-				localGalaxies.weights[i][j] = Math.abs(localGalaxies.all[j].x - localGalaxies.all[i].x) + Math.abs(localGalaxies.all[j].y - localGalaxies.all[i].y)
+				localGalaxies.weights[i][j] = Math.abs(localGalaxies.all[j].x - localGalaxies.all[i].x)
+					+ Math.abs(localGalaxies.all[j].y - localGalaxies.all[i].y)
 			}
 		}
 
