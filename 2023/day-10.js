@@ -20,14 +20,14 @@
 	const index = input.indexOf('S')
 	let y = Math.floor(index / grid.length)
 	let x = (index - y) % grid[0].length
-	let sx = x
-	let sy = y
+	const startX = x
+	const startY = y
 	let area = 0
 	let circumference = 0
 
 	while (++circumference) {
-		let oldX = x
-		let oldY = y
+		const oldX = x
+		const oldY = y
 		const char = grid[y][x]
 
 		if (x < grid[0].length - 1 && direction[char] & Direction.RIGHT && direction[grid[y][x + 1]] & Direction.LEFT) {
@@ -48,7 +48,7 @@
 		grid[oldY] = grid[oldY].substring(0, oldX) + '.' + grid[oldY].substring(oldX + 1)
 	}
 
-	area += y * sx - x * sy
+	area += y * startX - x * startY
 
 	console.log('Solution to part one:', circumference / 2)
 	console.log('Solution to part two:', (Math.abs(area) - circumference) / 2 + 1)

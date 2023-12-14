@@ -78,7 +78,7 @@
 
 	// Part one
 	const cardValuesPartOne = {
-		1: 11, 2: 12, 3: 13, 4: 14, 5: 15, 6: 16, 7: 17, 8: 18, 9: 19, T: 20, J: 21, Q: 22, K: 23, A: 24
+		1: 11, 2: 12, 3: 13, 4: 14, 5: 15, 6: 16, 7: 17, 8: 18, 9: 19, T: 20, J: 21, Q: 22, K: 23, A: 24,
 	}
 	let sumPartOne = 0
 	input.sort((a, b) => getHandStrength(a[0], cardValuesPartOne) -getHandStrength(b[0], cardValuesPartOne))
@@ -92,7 +92,7 @@
 
 	// Part two
 	const cardValuesPartTwo = {
-		J: 10, 1: 11, 2: 12, 3: 13, 4: 14, 5: 15, 6: 16, 7: 17, 8: 18, 9: 19, T: 20, Q: 22, K: 23, A: 24
+		J: 10, 1: 11, 2: 12, 3: 13, 4: 14, 5: 15, 6: 16, 7: 17, 8: 18, 9: 19, T: 20, Q: 22, K: 23, A: 24,
 	}
 	handStrengths.clear()
 
