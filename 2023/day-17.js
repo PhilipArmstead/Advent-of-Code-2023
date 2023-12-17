@@ -37,7 +37,7 @@
 		}
 	}
 
-	const solveMaze = (isUltra = false) => {
+	const solveMaze = (minSteps = 0, maxSteps = 3) => {
 		const q = new PriorityQueue()
 		q.push(0, { direction: -1, heat: 0, whenToTurn: 0, x: 0, y: 0 })
 
@@ -51,14 +51,18 @@
 			}
 			minimums.set(`${x},${y},${direction},${whenToTurn}`, heat)
 
+			// Walk in every direction form this step
 			for (let d = 0; d < directions.length; ++d) {
+				// Cannot go backwards
 				if ((d + 2) % 4 === direction) {
 					continue
 				}
+				// Cannot maintain direction when `whenToTurn` hits 0
 				if (d === direction && whenToTurn === 0) {
 					continue
 				}
-				if (isUltra && whenToTurn > 6 && d !== direction) {
+				// Must maintain direction while `whenToTurn` is greater than `maxSteps` - `minSteps`
+				if (whenToTurn > (maxSteps - minSteps) && d !== direction) {
 					continue
 				}
 
@@ -71,7 +75,7 @@
 					q.push(heat + cellValue,{
 						direction: d,
 						heat: heat + cellValue,
-						whenToTurn: d === direction ? whenToTurn - 1 : (isUltra ? 9 : 2),
+						whenToTurn: d === direction ? whenToTurn - 1 : (maxSteps - 1),
 						x: tX,
 						y: tY,
 					})
@@ -92,5 +96,5 @@
 	console.log('Solution to part one:', solveMaze())
 
 	// Part two
-	console.log('Solution to part two:', solveMaze(true))
+	console.log('Solution to part two:', solveMaze(4, 10))
 }
