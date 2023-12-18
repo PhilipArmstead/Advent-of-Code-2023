@@ -3,37 +3,44 @@
 // Paste the following code in to your browser's dev tools and execute it
 
 {
-	const directions = ['R', 'D', 'L', 'U']
 	const input = document.body.textContent.trim().split('\n')
 	const instructions = input.map(line => {
-		const [d, i] = line.split(' ')
-		return [d, Number(i)]
+		const [direction, distance] = line.split(' ')
+		return [direction, Number(distance)]
 	})
+	const directions = ['R', 'D', 'L', 'U']
 	const instructionsHuge = input.map(line => {
-		const [, , c] = line.split(' ')
-		return [directions[c[c.length - 2]], parseInt(c.substring(2, c.length - 2), 16)]
+		const [, , colour] = line.split(' ')
+		return [directions[colour[colour.length - 2]], parseInt(colour.substring(2, colour.length - 2), 16)]
 	})
 
 	const getAreaOfPolygon = (instructions) => {
 		let circumference = 0
-		let x = 0
-		let y = 0
+		let x1 = 0
+		let y1 = 0
+		let x2 = 0
+		let y2 = 0
 		let s1 = 0
 		let s2 = 0
+		let even = false
 
-		const coordinates = [[x, y]]
-		for (const [d, c] of instructions) {
-			switch (d) {
-				case 'R': x += c; break
-				case 'D': y += c; break
-				case 'L': x -= c; break
-				case 'U': y -= c; break
+		for (const [direction, distance] of instructions) {
+			switch (direction) {
+				case 'R': x1 += distance; break
+				case 'D': y1 += distance; break
+				case 'L': x1 -= distance; break
+				case 'U': y1 -= distance; break
 			}
-			circumference += c
-			coordinates.push([x, y])
-			if (!(coordinates.length % 2)) {
-				s1 += coordinates.at(-2)[0] * coordinates.at(-1)[1]
-				s2 += coordinates.at(-2)[1] * coordinates.at(-1)[0]
+			circumference += distance
+
+			// Sum up shoelace area every other coordinate
+			even = !even
+			if (even) {
+				s1 += x2 * y1
+				s2 += x1 * y2
+			} else {
+				x2 = x1
+				y2 = y1
 			}
 		}
 
