@@ -41,3 +41,5 @@ opening your browser's dev-tools, pasting the code in and executing it.
 - [Day 19](2023/day-19.js)
 - [Day 20](2023/day-20.js)
 - [Day 21](2023/day-21.js)
+- Day 22 TBD
+- [Day 23](2023/day-23.js)
