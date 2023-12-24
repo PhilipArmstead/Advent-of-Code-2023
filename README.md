@@ -2,10 +2,12 @@
 
 The solutions to these puzzles are written in Javascript.
 They can be used by visiting the input pages of each puzzle,
-opening your browser's dev-tools, pasting the code in and executing it. 
+opening your browser's dev-tools, pasting the code in and executing it.
 
 ## Solutions
+
 ### 2022
+
 - [Day 1](2022/day-1.js)
 - [Day 2](2022/day-2.js)
 - [Day 3](2022/day-3.js)
@@ -20,6 +22,7 @@ opening your browser's dev-tools, pasting the code in and executing it.
 - [Day 12](2022/day-12.js)
 
 ### 2023
+
 - [Day 1](2023/day-1.js)
 - [Day 2](2023/day-2.js)
 - [Day 3](2023/day-3.js)
@@ -43,3 +46,4 @@ opening your browser's dev-tools, pasting the code in and executing it.
 - [Day 21](2023/day-21.js)
 - Day 22 TBD
 - [Day 23](2023/day-23.js)
+- [Day 24](2023/day-24.js)
