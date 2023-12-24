@@ -25,10 +25,9 @@
 		const positions = [[start.x, start.y, 0]]
 		const tiles = {
 			'#': 0,
-			'.' : Direction.UP | Direction.RIGHT | Direction.DOWN | Direction.LEFT,
-			'>' : Direction.UP | Direction.RIGHT | Direction.DOWN,
-			'v' : Direction.RIGHT | Direction.DOWN | Direction.LEFT,
-			'<' : Direction.UP | Direction.DOWN | Direction.LEFT,
+			'.': Direction.UP | Direction.RIGHT | Direction.DOWN | Direction.LEFT,
+			'>': Direction.UP | Direction.RIGHT | Direction.DOWN,
+			'v': Direction.RIGHT | Direction.DOWN | Direction.LEFT,
 		}
 		const finishes = []
 
@@ -84,36 +83,29 @@
 			}
 		}
 
-			const tiles = {
-				'#': 0,
-				'.' : Direction.UP | Direction.RIGHT | Direction.DOWN | Direction.LEFT,
-				'>' : Direction.UP | Direction.RIGHT | Direction.DOWN | Direction.LEFT,
-				'v' : Direction.UP | Direction.RIGHT | Direction.DOWN | Direction.LEFT,
-				'<' : Direction.UP | Direction.RIGHT | Direction.DOWN | Direction.LEFT,
-			}
-			const positions = [[start.x, start.y, 1, start.x, start.y]]
+		const positions = [[start.x, start.y, 1, start.x, start.y]]
 
-			while (positions.length) {
-				let [x, y, steps, lastX, lastY, lastD] = positions.shift()
+		while (positions.length) {
+			let [x, y, steps, lastX, lastY, lastD] = positions.shift()
 
-				for (const d in Direction) {
-					const direction = directions[Direction[d]]
-					const tX = x + direction[0]
-					const tY = y + direction[1]
+			for (const d in Direction) {
+				const direction = directions[Direction[d]]
+				const tX = x + direction[0]
+				const tY = y + direction[1]
 
-					if (tiles[input[tY][tX]] & Direction[d] && Direction[d] * 4 !== Direction[lastD] && Direction[d] / 4 !== Direction[lastD]) {
-						if (branches[`${tX},${tY}`] && !branches[`${tX},${tY}`].some(([x, y]) => x === lastX && y === lastY)) {
-							branches[`${tX},${tY}`].push([lastX, lastY, steps + 1])
-							steps = -1
-							lastX = tX
-							lastY = tY
-						}
-						if (!branches[`${tX},${tY}`] || !branches[`${tX},${tY}`].some(([x, y]) => x === lastX && y === lastY)) {
-							positions.push([tX, tY, steps + 1, lastX, lastY, d])
-						}
+				if (input[tY][tX] !== '#' && Direction[d] << 2 !== Direction[lastD] && Direction[d] >> 2 !== Direction[lastD]) {
+					if (branches[`${tX},${tY}`] && !branches[`${tX},${tY}`].some(([x, y]) => x === lastX && y === lastY)) {
+						branches[`${tX},${tY}`].push([lastX, lastY, steps + 1])
+						steps = -1
+						lastX = tX
+						lastY = tY
+					}
+					if (!branches[`${tX},${tY}`] || !branches[`${tX},${tY}`].some(([x, y]) => x === lastX && y === lastY)) {
+						positions.push([tX, tY, steps + 1, lastX, lastY, d])
 					}
 				}
 			}
+		}
 
 		branches[`${end.x},${end.y}`].forEach(([x, y, cost]) => {
 			branches[`${x},${y}`] = [[end.x, end.y, cost]]
@@ -122,7 +114,6 @@
 		return branches
 	}
 	const slowWalk = (branches) => {
-
 		let max = 0
 		const positions = [[start.x, start.y, 0, new Set([`${start.x},${start.y}`])]]
 		while (positions.length) {
