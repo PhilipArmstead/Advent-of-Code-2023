@@ -1,25 +1,17 @@
 # Advent of Code
 
-The solutions to these puzzles are written in Javascript.
-They can be used by visiting the input pages of each puzzle,
+Solutions to years 2022 and 2023 are written in Javascript. They can be used by visiting the input pages of each puzzle, 
 opening your browser's dev-tools, pasting the code in and executing it.
+
+Solutions for 2024 are written in C. They can be compiled by running `make` in the **2024** directory and then 
+executing `./aoc`. **Note:** you must have corresponding _input.txt_ files inside each day's directory to execute 
+the solutions.
 
 ## Solutions
 
-### 2022
+### 2024
 
-- [Day 1](2022/day-1.js)
-- [Day 2](2022/day-2.js)
-- [Day 3](2022/day-3.js)
-- [Day 4](2022/day-4.js)
-- [Day 5](2022/day-5.js)
-- [Day 6](2022/day-6.js)
-- [Day 7](2022/day-7.js)
-- [Day 8](2022/day-8.js)
-- [Day 9](2022/day-9.js)
-- [Day 10](2022/day-10.js)
-- [Day 11](2022/day-11.js)
-- [Day 12](2022/day-12.js)
+- [Day 1](2024/day-1/day-1.c)
 
 ### 2023
 
@@ -48,3 +40,18 @@ opening your browser's dev-tools, pasting the code in and executing it.
 - [Day 23](2023/day-23.js)
 - [Day 24](2023/day-24.js)
 - [Day 25](2023/day-25.js)
+
+### 2022
+
+- [Day 1](2022/day-1.js)
+- [Day 2](2022/day-2.js)
+- [Day 3](2022/day-3.js)
+- [Day 4](2022/day-4.js)
+- [Day 5](2022/day-5.js)
+- [Day 6](2022/day-6.js)
+- [Day 7](2022/day-7.js)
+- [Day 8](2022/day-8.js)
+- [Day 9](2022/day-9.js)
+- [Day 10](2022/day-10.js)
+- [Day 11](2022/day-11.js)
+- [Day 12](2022/day-12.js)
