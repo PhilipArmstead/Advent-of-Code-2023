@@ -12,6 +12,7 @@ the solutions.
 ### 2024
 
 - [Day 1](2024/day-1/day-1.c)
+- [Day 2](2024/day-2/day-2.c)
 
 ### 2023
 
