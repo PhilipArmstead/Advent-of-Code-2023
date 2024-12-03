@@ -1,7 +1,6 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <sys/time.h>
 
 #include "../helpers/types.h"
@@ -23,24 +22,17 @@ int day2(char *filepath) {
 
 	char *line = NULL;
 	size_t size = 0;
-	size_t length;
 
 	u32 sumPartOne = 0;
 	u32 sumPartTwo = 0;
 
-	while ((length = getline(&line, &size, fp)) != -1) {
-		u8 values[10] = {strtol(line, NULL, 10)};
+	while (getline(&line, &size, fp) != -1) {
+		char *endPointer;
+		u8 values[10] = {strtol(line, &endPointer, 10)};
 		u8 count = 1;
-		u8 spaceStart = 0;
 
-		for (size_t i = 0; i < length; ++i) {
-			if (!spaceStart && line[i] == ' ') {
-				spaceStart = i;
-			} else if (spaceStart && line[i] != ' ') {
-				u32 spaceEnd = i;
-				values[count++] = strtol(line + spaceEnd, NULL, 10);
-				spaceStart = 0;
-			}
+		while (endPointer[0] != '\0' && endPointer[0] != '\n') {
+			values[count++] = strtol(endPointer, &endPointer, 10);
 		}
 
 		u8 faults = getFaultsWithLevels(values, count, 1);
