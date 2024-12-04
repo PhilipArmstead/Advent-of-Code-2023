@@ -14,6 +14,7 @@ the solutions.
 - [Day 1](2024/day-1/day-1.c)
 - [Day 2](2024/day-2/day-2.c)
 - [Day 3](2024/day-3/day-3.c)
+- [Day 4](2024/day-4/day-4.c)
 
 ### 2023
 
