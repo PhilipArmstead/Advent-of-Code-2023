@@ -4,6 +4,7 @@
 #include "day-2/day-2.c"
 #include "day-3/day-3.c"
 #include "day-4/day-4.c"
+#include "day-5/day-5.c"
 
 int main () {
 	printf(
@@ -14,4 +15,5 @@ int main () {
 	day2("day-2/input.txt");
 	day3("day-3/input.txt");
 	day4("day-4/input.txt");
+	day5("day-5/input.txt");
 }
