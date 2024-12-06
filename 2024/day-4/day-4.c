@@ -53,7 +53,7 @@ int day4(char *filepath) {
 						grid[row][column + 1] == 'M' &&
 						grid[row][column + 2] == 'A' &&
 						grid[row][column + 3] == 'S'
-					) {
+						) {
 						++sumPartOne;
 					}
 					if (
@@ -61,7 +61,7 @@ int day4(char *filepath) {
 						grid[row][column - 1] == 'M' &&
 						grid[row][column - 2] == 'A' &&
 						grid[row][column - 3] == 'S'
-					) {
+						) {
 						++sumPartOne;
 					}
 					if (
@@ -69,7 +69,7 @@ int day4(char *filepath) {
 						grid[row + 1][column] == 'M' &&
 						grid[row + 2][column] == 'A' &&
 						grid[row + 3][column] == 'S'
-					) {
+						) {
 						++sumPartOne;
 					}
 					if (
@@ -77,7 +77,7 @@ int day4(char *filepath) {
 						grid[row - 1][column] == 'M' &&
 						grid[row - 2][column] == 'A' &&
 						grid[row - 3][column] == 'S'
-					) {
+						) {
 						++sumPartOne;
 					}
 					if (
@@ -86,7 +86,7 @@ int day4(char *filepath) {
 						grid[row + 1][column + 1] == 'M' &&
 						grid[row + 2][column + 2] == 'A' &&
 						grid[row + 3][column + 3] == 'S'
-					) {
+						) {
 						++sumPartOne;
 					}
 					if (
@@ -95,7 +95,7 @@ int day4(char *filepath) {
 						grid[row - 1][column - 1] == 'M' &&
 						grid[row - 2][column - 2] == 'A' &&
 						grid[row - 3][column - 3] == 'S'
-					) {
+						) {
 						++sumPartOne;
 					}
 					if (
@@ -104,7 +104,7 @@ int day4(char *filepath) {
 						grid[row - 1][column + 1] == 'M' &&
 						grid[row - 2][column + 2] == 'A' &&
 						grid[row - 3][column + 3] == 'S'
-					) {
+						) {
 						++sumPartOne;
 					}
 					if (
@@ -113,7 +113,7 @@ int day4(char *filepath) {
 						grid[row + 1][column - 1] == 'M' &&
 						grid[row + 2][column - 2] == 'A' &&
 						grid[row + 3][column - 3] == 'S'
-					) {
+						) {
 						++sumPartOne;
 					}
 				}
@@ -160,6 +160,10 @@ int day4(char *filepath) {
 	return 0;
 }
 
-//int main() {
-//	day4("ex1.txt");
-//}
+#ifndef IS_MAIN
+
+int main() {
+	day4("ex1.txt");
+}
+
+#endif

@@ -114,6 +114,10 @@ bool isLevelSafe(char direction, i32 value, i32 lastValue) {
 	return true;
 }
 
-//int main() {
-//	day2("ex1.txt");
-//}
+#ifndef IS_MAIN
+
+int main() {
+	day2("ex1.txt");
+}
+
+#endif

@@ -109,6 +109,10 @@ int day3(char *filepath) {
 	return 0;
 }
 
-//int main() {
-//	day3("ex2.txt");
-//}
+#ifndef IS_MAIN
+
+int main() {
+	day3("ex2.txt");
+}
+
+#endif

@@ -128,6 +128,10 @@ int day6(char *filepath) {
 	return 0;
 }
 
-//int main() {
-//	day6("ex1.txt");
-//}
+#ifndef IS_MAIN
+
+int main() {
+	day6("ex1.txt");
+}
+
+#endif

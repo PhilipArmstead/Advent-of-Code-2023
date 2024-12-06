@@ -114,6 +114,11 @@ void quickSort(u32 *values, i32 low, i32 high) {
 	quickSort(values, pivot + 1, high);
 }
 
-//int main() {
-//	day1("ex1.txt");
-//}
+
+#ifndef IS_MAIN
+
+int main() {
+	day1("ex1.txt");
+}
+
+#endif

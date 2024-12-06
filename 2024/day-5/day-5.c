@@ -101,6 +101,10 @@ int day5(char *filepath) {
 	return 0;
 }
 
-//int main() {
-//	day5("ex1.txt");
-//}
+#ifndef IS_MAIN
+
+int main() {
+	day5("ex1.txt");
+}
+
+#endif
