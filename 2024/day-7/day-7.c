@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+#include "../helpers/challenge.h"
 #include "../helpers/types.h"
 
 
@@ -14,8 +15,8 @@ int day7(char *filepath) {
 	struct timeval startTime;
 	gettimeofday(&startTime, NULL);
 
-	u64 sumPartOne = 0;
-	u64 sumPartTwo = 0;
+	u64 answerPartOne = 0;
+	u64 answerPartTwo = 0;
 
 	FILE *fp = fopen(filepath, "r");
 	if (!fp || ferror(fp)) {
@@ -24,40 +25,27 @@ int day7(char *filepath) {
 	}
 
 	char line[64];
-	u64 target;
-	u16 values[12];
 	while (fgets(line, sizeof(line), fp) != NULL) {
 		char *endPointer;
-		u8 length = 0;
-		target = strtoll(line, &endPointer, 10);
+		u64 target = strtoll(line, &endPointer, 10);
 		endPointer += 2;
 
+		u16 values[12];
+		u8 length = 0;
 		while (endPointer[0] != '\0' && endPointer[0] != '\n') {
 			values[length++] = strtol(endPointer, &endPointer, 10);
 		}
 
 		if (isValid(target, values[0], values, length, false, 1)) {
-			sumPartOne += target;
+			answerPartOne += target;
 		} else if (isValid(target, values[0], values, length, true, 1)) {
-			sumPartTwo += target;
+			answerPartTwo += target;
 		}
 	}
 
 	fclose(fp);
 
-	struct timeval currentTime;
-	gettimeofday(&currentTime, NULL);
-
-	printf(
-		"Day 7 (ran in %ldms)\n"
-		"-----\n"
-		"Part one: %llu\n"
-		"Part two: %llu\n\n",
-		((currentTime.tv_sec * (int) 1e6 + currentTime.tv_usec) -
-		 (startTime.tv_sec * (int) 1e6 + startTime.tv_usec)) / 1000,
-		sumPartOne,
-		sumPartOne + sumPartTwo
-	);
+	printChallengeSummary(7, startTime, answerPartOne, answerPartOne + answerPartTwo);
 
 	return 0;
 }
@@ -86,7 +74,7 @@ u64 concatenateIntegers(u64 x, u64 y) {
 #ifndef IS_MAIN
 
 int main() {
-	day7("input.txt");
+	day7("ex1.txt");
 }
 
 #endif

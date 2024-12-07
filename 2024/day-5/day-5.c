@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+#include "../helpers/challenge.h"
 #include "../helpers/types.h"
 
 
@@ -16,8 +17,8 @@ int day5(char *filepath) {
 		return 2;
 	}
 
-	u32 sumPartOne = 0;
-	u32 sumPartTwo = 0;
+	u32 answerPartOne = 0;
+	u32 answerPartTwo = 0;
 
 	char line[72];
 	u8 map[100][50] = {0};
@@ -55,7 +56,7 @@ int day5(char *filepath) {
 			}
 
 			if (isValid) {
-				sumPartOne += values[(index - 1) / 2];
+				answerPartOne += values[(index - 1) / 2];
 			} else {
 				// Part two
 				i = index;
@@ -77,26 +78,14 @@ int day5(char *filepath) {
 					}
 				}
 
-				sumPartTwo += values[(index - 1) / 2];
+				answerPartTwo += values[(index - 1) / 2];
 			}
 		}
 	}
 
-	struct timeval currentTime;
-	gettimeofday(&currentTime, NULL);
-
-	printf(
-		"Day 5 (ran in %ldμs)\n"
-		"-----\n"
-		"Part one: %u\n"
-		"Part two: %u\n\n",
-		((currentTime.tv_sec * (int) 1e6 + currentTime.tv_usec) -
-		 (startTime.tv_sec * (int) 1e6 + startTime.tv_usec)),
-		sumPartOne,
-		sumPartTwo
-	);
-
 	fclose(fp);
+
+	printChallengeSummary(5, startTime, answerPartOne, answerPartTwo);
 
 	return 0;
 }

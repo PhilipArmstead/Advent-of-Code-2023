@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+#include "../helpers/challenge.h"
 #include "../helpers/types.h"
 
 
@@ -33,16 +34,18 @@ int day1(char *filepath) {
 		++length;
 	}
 
+	fclose(fp);
+
 	// Having to implement quick sort on day 1 doesn't bode well
 	quickSort(listOne, 0, length - 1);
 	quickSort(listTwo, 0, length - 1);
 
-	u64 sumPartOne = 0;
-	u64 sumPartTwo = 0;
+	u64 answerPartOne = 0;
+	u64 answerPartTwo = 0;
 
 	for (u32 i = 0; i < length; ++i) {
 		// Part one
-		sumPartOne += listOne[i] > listTwo[i] ? listOne[i] - listTwo[i] : listTwo[i] - listOne[i];
+		answerPartOne += listOne[i] > listTwo[i] ? listOne[i] - listTwo[i] : listTwo[i] - listOne[i];
 
 		// Part two
 		u32 count = 0;
@@ -59,23 +62,10 @@ int day1(char *filepath) {
 			}
 		}
 
-		sumPartTwo += count * listOne[i];
+		answerPartTwo += count * listOne[i];
 	}
 
-	struct timeval currentTime;
-	gettimeofday(&currentTime, NULL);
-
-	printf(
-		"Day 1 (ran in %ldμs)\n"
-		"-----\n"
-		"Part one: %lu\n"
-		"Part two: %lu\n\n",
-		((currentTime.tv_sec * (int) 1e6 + currentTime.tv_usec) - (startTime.tv_sec * (int) 1e6 + startTime.tv_usec)),
-		sumPartOne,
-		sumPartTwo
-	);
-
-	fclose(fp);
+	printChallengeSummary(1, startTime, answerPartOne, answerPartTwo);
 
 	return 0;
 }

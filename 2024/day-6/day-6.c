@@ -3,6 +3,7 @@
 #include <sys/time.h>
 #include <memory.h>
 
+#include "../helpers/challenge.h"
 #include "../helpers/types.h"
 
 
@@ -38,6 +39,8 @@ int day6(char *filepath) {
 		}
 	}
 
+	fclose(fp);
+
 	i8 directions[4][3] = {
 		{-1, 0,  '^'},
 		{0,  1,  '>'},
@@ -46,8 +49,8 @@ int day6(char *filepath) {
 	};
 	u8 directionIndex = 0;
 
-	u32 sumPartOne = 1;
-	u32 sumPartTwo = 0;
+	u32 answerPartOne = 1;
+	u32 answerPartTwo = 0;
 
 	u8 currentX = initialX;
 	u8 currentY = initialY;
@@ -66,7 +69,7 @@ int day6(char *filepath) {
 
 			if (grid[currentY][currentX] == '.') {
 				grid[currentY][currentX] = '-';
-				++sumPartOne;
+				++answerPartOne;
 			}
 		}
 	}
@@ -99,7 +102,7 @@ int day6(char *filepath) {
 					currentX += d[1];
 
 					if (gridCopy[currentY][currentX] == d[2]) {
-						++sumPartTwo;
+						++answerPartTwo;
 						break;
 					}
 
@@ -109,21 +112,7 @@ int day6(char *filepath) {
 		}
 	}
 
-	struct timeval currentTime;
-	gettimeofday(&currentTime, NULL);
-
-	printf(
-		"Day 6 (ran in %ldms)\n"
-		"-----\n"
-		"Part one: %u\n"
-		"Part two: %u\n\n",
-		((currentTime.tv_sec * (int) 1e6 + currentTime.tv_usec) -
-		 (startTime.tv_sec * (int) 1e6 + startTime.tv_usec)) / 1000,
-		sumPartOne,
-		sumPartTwo
-	);
-
-	fclose(fp);
+	printChallengeSummary(6, startTime, answerPartOne, answerPartTwo);
 
 	return 0;
 }

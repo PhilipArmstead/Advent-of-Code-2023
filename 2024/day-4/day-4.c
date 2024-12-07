@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <sys/time.h>
 
+#include "../helpers/challenge.h"
 #include "../helpers/types.h"
 
 
@@ -38,10 +39,12 @@ int day4(char *filepath) {
 		}
 	}
 
+	fclose(fp);
+
 	u8 height = row;
 
-	u32 sumPartOne = 0;
-	u32 sumPartTwo = 0;
+	u32 answerPartOne = 0;
+	u32 answerPartTwo = 0;
 
 	for (row = 0; row < height; ++row) {
 		for (column = 0; column < width; ++column) {
@@ -54,7 +57,7 @@ int day4(char *filepath) {
 						grid[row][column + 2] == 'A' &&
 						grid[row][column + 3] == 'S'
 						) {
-						++sumPartOne;
+						++answerPartOne;
 					}
 					if (
 						column >= 3 &&
@@ -62,7 +65,7 @@ int day4(char *filepath) {
 						grid[row][column - 2] == 'A' &&
 						grid[row][column - 3] == 'S'
 						) {
-						++sumPartOne;
+						++answerPartOne;
 					}
 					if (
 						row < height - 3 &&
@@ -70,7 +73,7 @@ int day4(char *filepath) {
 						grid[row + 2][column] == 'A' &&
 						grid[row + 3][column] == 'S'
 						) {
-						++sumPartOne;
+						++answerPartOne;
 					}
 					if (
 						row >= 3 &&
@@ -78,7 +81,7 @@ int day4(char *filepath) {
 						grid[row - 2][column] == 'A' &&
 						grid[row - 3][column] == 'S'
 						) {
-						++sumPartOne;
+						++answerPartOne;
 					}
 					if (
 						row < height - 3 &&
@@ -87,7 +90,7 @@ int day4(char *filepath) {
 						grid[row + 2][column + 2] == 'A' &&
 						grid[row + 3][column + 3] == 'S'
 						) {
-						++sumPartOne;
+						++answerPartOne;
 					}
 					if (
 						row >= 3 &&
@@ -96,7 +99,7 @@ int day4(char *filepath) {
 						grid[row - 2][column - 2] == 'A' &&
 						grid[row - 3][column - 3] == 'S'
 						) {
-						++sumPartOne;
+						++answerPartOne;
 					}
 					if (
 						row >= 3 &&
@@ -105,7 +108,7 @@ int day4(char *filepath) {
 						grid[row - 2][column + 2] == 'A' &&
 						grid[row - 3][column + 3] == 'S'
 						) {
-						++sumPartOne;
+						++answerPartOne;
 					}
 					if (
 						row < height - 3 &&
@@ -114,7 +117,7 @@ int day4(char *filepath) {
 						grid[row + 2][column - 2] == 'A' &&
 						grid[row + 3][column - 3] == 'S'
 						) {
-						++sumPartOne;
+						++answerPartOne;
 					}
 				}
 			}
@@ -134,28 +137,14 @@ int day4(char *filepath) {
 						(grid[row][column + 2] == 'M' && grid[row + 2][column] == 'S') ||
 						(grid[row][column + 2] == 'S' && grid[row + 2][column] == 'M')
 						) {
-						++sumPartTwo;
+						++answerPartTwo;
 					}
 				}
 			}
 		}
 	}
 
-	struct timeval currentTime;
-	gettimeofday(&currentTime, NULL);
-
-	printf(
-		"Day 4 (ran in %ldμs)\n"
-		"-----\n"
-		"Part one: %u\n"
-		"Part two: %u\n\n",
-		((currentTime.tv_sec * (int) 1e6 + currentTime.tv_usec) -
-		 (startTime.tv_sec * (int) 1e6 + startTime.tv_usec)),
-		sumPartOne,
-		sumPartTwo
-	);
-
-	fclose(fp);
+	printChallengeSummary(4, startTime, answerPartOne, answerPartTwo);
 
 	return 0;
 }
