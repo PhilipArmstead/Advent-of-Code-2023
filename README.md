@@ -62,3 +62,18 @@ the solutions.
 - [Day 10](2022/day-10.js)
 - [Day 11](2022/day-11.js)
 - [Day 12](2022/day-12.js)
+
+# Everybody Codes
+
+There's a lesser-known coding challenge platform called [Everybody Codes](https://everybody.codes), which I've also 
+started writing solutions for.
+
+Solutions for 2024 are written in C. They can be compiled by running `make` in the **2024** directory and then
+executing `./everybody-codes`. **Note:** you must have corresponding _input*.txt_ files inside each day's directory to 
+execute the solutions.
+
+## Solutions
+
+### 2024
+
+- [Day 1](everybody-codes/2024/day-1/day-1.c)
