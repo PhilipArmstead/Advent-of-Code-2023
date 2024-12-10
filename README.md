@@ -20,6 +20,7 @@ the solutions.
 - [Day 7](2024/day-7/day-7.c)
 - [Day 8](2024/day-8/day-8.c)
 - [Day 9](2024/day-9/day-9.c)
+- [Day 10](2024/day-10/day-10.c)
 
 ### 2023
 
