@@ -14,3 +14,11 @@ typedef int32_t i32;
 typedef int64_t i64;
 typedef float f32;
 typedef double f64;
+
+
+static i8 directions[4][3] = {
+	{-1, 0,  '^'},
+	{0,  1,  '>'},
+	{1,  0,  'v'},
+	{0,  -1, '<'},
+};

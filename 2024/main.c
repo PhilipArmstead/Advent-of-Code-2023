@@ -14,6 +14,7 @@
 #include "day-9/day-9.c"
 #include "day-10/day-10.c"
 #include "day-11/day-11.c"
+#include "day-12/day-12.c"
 
 
 int main() {
@@ -32,4 +33,5 @@ int main() {
 	day9("day-9/input.txt");
 	day10("day-10/input.txt");
 	day11("day-11/input.txt");
+	day12("day-12/input.txt");
 }

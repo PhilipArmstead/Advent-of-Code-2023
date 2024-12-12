@@ -41,12 +41,6 @@ int day6(char *filepath) {
 
 	fclose(fp);
 
-	i8 directions[4][3] = {
-		{-1, 0,  '^'},
-		{0,  1,  '>'},
-		{1,  0,  'v'},
-		{0,  -1, '<'},
-	};
 	u8 directionIndex = 0;
 
 	u32 answerPartOne = 1;

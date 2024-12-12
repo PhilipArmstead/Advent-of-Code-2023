@@ -11,13 +11,6 @@ typedef struct {
 	u8 y;
 } Point;
 
-u8 directions[4][2] = {
-	{-1, 0},
-	{0,  1},
-	{1,  0},
-	{0,  -1},
-};
-
 void getTrailheadCount(
 	u8 grid[64][64],
 	Point point,
