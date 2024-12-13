@@ -19,8 +19,6 @@ typedef struct {
 	u8 y2;
 } Plot;
 
-void walkPlot(u16 *grid, u8 y, u8 x, u8 c, Plot *plot);
-
 u16 getEdgesFromPlot(const u16 *grid, Plot *plot);
 
 int day12(char *filepath) {
@@ -71,6 +69,8 @@ int day12(char *filepath) {
 	const u8 startingPlotId = 100;
 	u16 plotId = startingPlotId + 1;
 
+	u8 queue[116];
+
 	for (y = 1; y < size + 1; ++y) {
 		for (u8 x = 1; x < size + 1; ++x) {
 			u16 c = grid[y * DAY_12_MAX_SIZE + x];
@@ -80,8 +80,48 @@ int day12(char *filepath) {
 			}
 
 			Plot plot = {plotId, 1, 0, size, size, 0, 0};
+			grid[y * DAY_12_MAX_SIZE + x] = plot.id;
 
-			walkPlot(grid, y, x, c, &plot);
+			u8 qHead = 0;
+			u8 qTail = 2;
+			queue[0] = y;
+			queue[1] = x;
+
+			while (qHead != qTail) {
+				u8 qY = queue[qHead];
+				u8 qX = queue[qHead + 1];
+
+				if (qY < plot.y1) {
+					plot.y1 = qY;
+				}
+				if (qY > plot.y2) {
+					plot.y2 = qY;
+				}
+				if (qX < plot.x1) {
+					plot.x1 = qX;
+				}
+				if (qX > plot.x2) {
+					plot.x2 = qX;
+				}
+
+				for (u8 i = 0; i < 4; ++i) {
+					i8 dY = directions[i][0];
+					i8 dX = directions[i][1];
+
+					u16 nC = grid[(qY + dY) * DAY_12_MAX_SIZE + qX + dX];
+					if (nC == c) {
+						++plot.area;
+						grid[(qY + dY) * DAY_12_MAX_SIZE + qX + dX] = plot.id;
+						queue[qTail] = qY + dY;
+						queue[qTail + 1] = qX + dX;
+						qTail += 2;
+					} else if (nC != grid[qY * DAY_12_MAX_SIZE + qX]) {
+						++plot.perimeter;
+					}
+				}
+
+				qHead += 2;
+			}
 
 			answerPartOne += plot.area * plot.perimeter;
 			answerPartTwo += getEdgesFromPlot(grid, &plot);
@@ -90,38 +130,10 @@ int day12(char *filepath) {
 		}
 	}
 
+	free(grid);
+
 	printChallengeSummary(12, startTime, answerPartOne, answerPartTwo);
 	return 0;
-}
-
-void walkPlot(u16 *grid, u8 y, u8 x, u8 c, Plot *plot) {
-	grid[y * DAY_12_MAX_SIZE + x] = plot->id;
-
-	if (y < plot->y1) {
-		plot->y1 = y;
-	}
-	if (y > plot->y2) {
-		plot->y2 = y;
-	}
-	if (x < plot->x1) {
-		plot->x1 = x;
-	}
-	if (x > plot->x2) {
-		plot->x2 = x;
-	}
-
-	for (u8 i = 0; i < 4; ++i) {
-		i8 dY = directions[i][0];
-		i8 dX = directions[i][1];
-
-		u16 nC = grid[(y + dY) * DAY_12_MAX_SIZE + x + dX];
-		if (nC == c) {
-			++plot->area;
-			walkPlot(grid, y + dY, x + dX, c, plot);
-		} else if (nC != grid[y * DAY_12_MAX_SIZE + x]) {
-			++plot->perimeter;
-		}
-	}
 }
 
 u16 getEdgesFromPlot(const u16 *grid, Plot *plot) {
@@ -174,7 +186,7 @@ u16 getEdgesFromPlot(const u16 *grid, Plot *plot) {
 #ifndef IS_MAIN
 
 int main() {
-	day12("ex1.txt");
+	day12("input.txt");
 }
 
 #endif
