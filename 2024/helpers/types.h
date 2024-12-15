@@ -22,3 +22,7 @@ static i8 directions[4][3] = {
 	{1,  0,  'v'},
 	{0,  -1, '<'},
 };
+typedef struct {
+	u8 x;
+	u8 y;
+} Point;

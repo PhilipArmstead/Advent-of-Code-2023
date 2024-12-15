@@ -6,11 +6,6 @@
 #include "../helpers/types.h"
 
 
-typedef struct {
-	u8 x;
-	u8 y;
-} Point;
-
 void getTrailheadCount(
 	u8 grid[64][64],
 	Point point,
@@ -52,7 +47,7 @@ int day10(char *filepath) {
 
 				grid[y][x] = c - 48;
 				if (c == '0') {
-					origin[originCount++] = (Point) {x, y};
+					origin[originCount++] = (Point) { x, y };
 				}
 
 				++x;
@@ -103,13 +98,13 @@ void getTrailheadCount(
 			}
 		}
 
-		seenPeaks[(*seenPeakCount)++] = (Point) {point.x, point.y};
+		seenPeaks[(*seenPeakCount)++] = (Point) { point.x, point.y };
 		++(*answerPartOne);
 		return;
 	}
 
 	for (u8 d = 0; d < 4; ++d) {
-		Point dPoint = {point.x + directions[d][1], point.y + directions[d][0]};
+		Point dPoint = { point.x + directions[d][1], point.y + directions[d][0] };
 		if (
 			dPoint.x >= 0 &&
 			dPoint.x < gridSize &&
